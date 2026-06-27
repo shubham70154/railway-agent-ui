@@ -17,12 +17,32 @@
   display: flex;
   flex-direction: column;
   -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+.chat-box::before {
+  content: "Agentic AI";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-size: clamp(48px, 12vw, 140px);
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: rgba(0, 0, 0, 0.06);
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+  z-index: 0;
 }
 
 .messages-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+  z-index: 1;
 }
 
 .message {
