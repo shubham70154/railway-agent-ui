@@ -5,6 +5,16 @@
         <div class="message-sender">{{ msg.sender }}</div>
         <div class="message-text">{{ msg.text }}</div>
       </div>
+
+      <div *ngIf="isLoading" class="message ai typing-indicator">
+        <div class="message-sender">AI</div>
+        <div class="message-text">
+          <span class="typing-text">Thinking...</span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -16,15 +26,18 @@
       class="message-input"
       rows="2"
       id="messageInput"
+      [disabled]="isLoading"
     ></textarea>
 
-    <select [(ngModel)]="selectedModel" class="model-select">
+    <select [(ngModel)]="selectedModel" class="model-select" [disabled]="isLoading">
       <option *ngFor="let m of models" [value]="m">{{ m }}</option>
     </select>
 
     <div class="button-group">
-      <button (click)="sendMessage()" class="send-button">Send</button>
-      <button (click)="clearChat()" class="send-button secondary">Clear Chat</button>
+      <button (click)="sendMessage()" class="send-button" [disabled]="isLoading">
+        {{ isLoading ? 'Sending...' : 'Send' }}
+      </button>
+      <button (click)="clearChat()" class="send-button secondary" [disabled]="isLoading">Clear Chat</button>
     </div>
   </div>
 </div>

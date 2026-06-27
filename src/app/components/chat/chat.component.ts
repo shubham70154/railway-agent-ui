@@ -11,6 +11,7 @@ export class ChatComponent implements OnInit {
   messages: Array<{ sender: string; text: string }> = [];
   models: string[] = [];
   selectedModel: string = 'gemini-2.5-flash';
+  isLoading: boolean = false;
 
   constructor(private chatService: ChatService) { }
 
@@ -27,23 +28,29 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    if (!this.message.trim()) {
+    if (!this.message.trim() || this.isLoading) {
       return;
     }
 
+    const sentMessage = this.message;
+
     this.messages.push({
       sender: 'User',
-      text: this.message
+      text: sentMessage
     });
 
+    this.isLoading = true;
+    this.message = '';
+
     this.chatService
-      .chat(this.message, this.selectedModel)
+      .chat(sentMessage, this.selectedModel)
       .subscribe({
         next: (res: any) => {
           this.messages.push({
             sender: 'AI',
             text: res.response
           });
+          this.isLoading = false;
         },
         error: (err) => {
           const apiErr = err?.error;
@@ -54,10 +61,10 @@ export class ChatComponent implements OnInit {
             sender: 'AI',
             text
           });
+          this.isLoading = false;
+          this.message = sentMessage;
         }
       });
-
-    this.message = '';
   }
 
   clearChat() {
