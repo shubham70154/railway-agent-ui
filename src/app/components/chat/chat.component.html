@@ -1,0 +1,28 @@
+<div class="chat-container">
+  <div class="chat-box">
+    <div class="messages-container">
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender.toLowerCase()">
+        <div class="message-sender">{{ msg.sender }}</div>
+        <div class="message-text">{{ msg.text }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-container">
+    <textarea
+      [(ngModel)]="message"
+      (keyup.enter)="sendMessage()"
+      placeholder="Type your message..."
+      class="message-input"
+      rows="3"
+    ></textarea>
+  <div>
+
+    <select [(ngModel)]="selectedModel" class="model-select">
+      <option *ngFor="let m of models" [value]="m">{{ m }}</option>
+    </select> &nbsp; &nbsp;
+    <button (click)="sendMessage()" class="send-button">Send</button> &nbsp; &nbsp;
+    <button (click)="clearChat()" class="send-button">Clear Chat</button>
+  </div>
+  </div>
+</div>
