@@ -21,7 +21,7 @@
 }
 
 .chat-box::before {
-  content: "Agentic AI";
+  content: "AI Agent";
   position: absolute;
   top: 50%;
   left: 50%;
