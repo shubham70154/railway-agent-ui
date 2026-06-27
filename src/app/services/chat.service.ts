@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
-  private baseUrl = 'http://localhost:8000';
+  private baseUrl = environment.apiUrl; // 'http://localhost:8000'
 
   constructor(private http: HttpClient) { }
 
