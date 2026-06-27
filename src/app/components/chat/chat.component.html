@@ -14,16 +14,17 @@
       (keyup.enter)="sendMessage()"
       placeholder="Type your railway query... e.g., 'Check PNR status' or 'Where is train 12427?'"
       class="message-input"
-      rows="3"
-      id="messageInput"      
+      rows="2"
+      id="messageInput"
     ></textarea>
-  <div>
 
     <select [(ngModel)]="selectedModel" class="model-select">
       <option *ngFor="let m of models" [value]="m">{{ m }}</option>
-    </select> &nbsp; &nbsp;
-    <button (click)="sendMessage()" class="send-button">Send</button> &nbsp; &nbsp;
-    <button (click)="clearChat()" class="send-button">Clear Chat</button>
-  </div>
+    </select>
+
+    <div class="button-group">
+      <button (click)="sendMessage()" class="send-button">Send</button>
+      <button (click)="clearChat()" class="send-button secondary">Clear Chat</button>
+    </div>
   </div>
 </div>
