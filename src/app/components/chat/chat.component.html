@@ -29,9 +29,13 @@
       [disabled]="isLoading"
     ></textarea>
 
-    <select [(ngModel)]="selectedModel" class="model-select" [disabled]="isLoading">
-      <option *ngFor="let m of models" [value]="m">{{ m }}</option>
-    </select>
+    <div class="model-select-wrapper">
+      <select [(ngModel)]="selectedModel" class="model-select" [disabled]="isLoading || isLoadingModels">
+        <option *ngIf="isLoadingModels" [value]="''">Loading models...</option>
+        <option *ngFor="let m of models" [value]="m">{{ m }}</option>
+      </select>
+      <span *ngIf="isLoadingModels" class="model-spinner" aria-hidden="true"></span>
+    </div>
 
     <div class="button-group">
       <button (click)="sendMessage()" class="send-button" [disabled]="isLoading">

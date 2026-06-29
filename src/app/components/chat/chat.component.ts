@@ -12,18 +12,24 @@ export class ChatComponent implements OnInit {
   models: string[] = [];
   selectedModel: string = 'gemini-2.5-flash';
   isLoading: boolean = false;
+  isLoadingModels: boolean = false;
 
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
+    this.isLoadingModels = true;
     this.chatService.getModels().subscribe({
       next: (models) => {
         this.models = models;
         if (models.length && !models.includes(this.selectedModel)) {
           this.selectedModel = models[0];
         }
+        this.isLoadingModels = false;
       },
-      error: (err) => console.error('Failed to load models', err)
+      error: (err) => {
+        console.error('Failed to load models', err);
+        this.isLoadingModels = false;
+      }
     });
   }
 
